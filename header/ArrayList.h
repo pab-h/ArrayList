@@ -31,13 +31,13 @@ int indexOf(ArrayList* list, void* value);
 
 void remove(ArrayList* list, void* value);
 
-void removeAt(ArrayList* list, int value);
+void removeAt(ArrayList* list, int index);
 
 int size(ArrayList* list);
 
 int isEmpty(ArrayList* list);
 
-ArrayList* subArrayList(ArrayList* list);
+ArrayList* subArrayList(ArrayList* list, int start, int end);
 
 void set(ArrayList* list, int index, void* value);
 
