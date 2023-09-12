@@ -1,9 +1,3 @@
-# ArrayList em C
-É literalmente uma cópia do [ArrayList do Java](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)
-
-# Header
-
-```C
 #ifndef ARRAYLIST_HEADER
 
 #define ARRAYLIST_HEADER
@@ -59,4 +53,3 @@ void* next(Iterator* iterator);
 int hasNext(Iterator* iterator);
 
 #endif
-```
