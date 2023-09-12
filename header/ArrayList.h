@@ -23,7 +23,7 @@ ArrayList* createArrayList();
 
 ArrayList* arrayListFrom(void** values);
 
-void add(ArrayList* list);
+void add(ArrayList* list, void* value);
 
 void addAll(ArrayList* list, void** values);
 
