@@ -25,6 +25,10 @@ typedef struct Iterator {
     Node* current;
 } Iterator;
 
+ArrayList* createArrayList();
+
+ArrayList* arrayListFrom(void** values);
+
 void add(ArrayList* list);
 
 void addAll(ArrayList* list, void** values);
