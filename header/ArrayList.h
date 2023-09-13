@@ -4,7 +4,7 @@
 
 typedef struct Node {
     void* value;
-    struct node* next;
+    struct Node* next;
 } Node;
 
 typedef struct ArrayList {
