@@ -28,3 +28,28 @@ ArrayList* arrayListFrom(void** values) {
     return list;
 }
 
+void add(ArrayList* list, void* value) {
+    Node* node = createNode(value);
+    
+    if (size(list) == 0) {
+        list->head = node;
+        list->tail = node;
+        list->size++;
+
+        return;
+    }
+
+    list->tail->next = node;
+    list->tail = node;
+
+    list->size++;
+
+}
+
+void addAll(ArrayList* list, void** values) {
+    int size = sizeof(values) / sizeof(*values);
+    
+    for(int i = 0; i < size; i++) {
+        add(list, *(values + i));
+    }
+}
