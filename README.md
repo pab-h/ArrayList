@@ -10,7 +10,7 @@
 
 typedef struct Node {
     void* value;
-    struct node* next;
+    struct Node* next;
 } Node;
 
 typedef struct ArrayList {
@@ -29,7 +29,7 @@ ArrayList* createArrayList();
 
 ArrayList* arrayListFrom(void** values);
 
-void add(ArrayList* list);
+void add(ArrayList* list, void* value);
 
 void addAll(ArrayList* list, void** values);
 
@@ -52,8 +52,6 @@ ArrayList* subArrayList(ArrayList* list, int start, int end);
 void set(ArrayList* list, int index, void* value);
 
 void** toArray(ArrayList* list);
-
-char* toString(ArrayList* list);
 
 void iterator(ArrayList* list);
 
