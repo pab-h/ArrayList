@@ -47,8 +47,6 @@ void set(ArrayList* list, int index, void* value);
 
 void** toArray(ArrayList* list);
 
-char* toString(ArrayList* list);
-
 void iterator(ArrayList* list);
 
 
