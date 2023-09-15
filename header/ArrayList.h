@@ -39,8 +39,6 @@ void removeAt(ArrayList* list, int index);
 
 int size(ArrayList* list);
 
-int isEmpty(ArrayList* list);
-
 ArrayList* subArrayList(ArrayList* list, int start, int end);
 
 void set(ArrayList* list, int index, void* value);
