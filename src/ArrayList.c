@@ -52,4 +52,31 @@ void addAll(ArrayList* list, void** values) {
     for(int i = 0; i < size; i++) {
         add(list, *(values + i));
     }
+    
+}
+
+void clear(ArrayList* list) {
+    if (size(list) == 0) {
+        return;
+    }
+
+    Node* current = list->head;
+
+    while (current) {
+        Node* next = current->next;
+
+        free(current->value);
+        free(current);
+
+        current = next;
+    }
+
+    list->size = 0;
+
+}
+
+void destroy(ArrayList* list) {
+    clear(list);
+    free(list);
+
 }
