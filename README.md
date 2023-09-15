@@ -35,6 +35,8 @@ void addAll(ArrayList* list, void** values);
 
 void clear(ArrayList* list);
 
+void destroy(ArrayList* list);
+
 void* get(ArrayList* list, int index);
 
 int indexOf(ArrayList* list, void* value);
@@ -44,8 +46,6 @@ void remove(ArrayList* list, void* value);
 void removeAt(ArrayList* list, int index);
 
 int size(ArrayList* list);
-
-int isEmpty(ArrayList* list);
 
 ArrayList* subArrayList(ArrayList* list, int start, int end);
 
