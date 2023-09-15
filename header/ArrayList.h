@@ -29,6 +29,8 @@ void addAll(ArrayList* list, void** values);
 
 void clear(ArrayList* list);
 
+void destroy(ArrayList* list);
+
 void* get(ArrayList* list, int index);
 
 int indexOf(ArrayList* list, void* value);
