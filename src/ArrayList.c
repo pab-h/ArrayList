@@ -10,6 +10,11 @@ Node* createNode(void* value) {
     return node;
 }
 
+void deleteNode(Node* node) {
+    free(node->value);
+    free(node);
+}
+
 ArrayList* createArrayList() {
     ArrayList* list = (ArrayList*) malloc(sizeof(ArrayList));
 
@@ -65,8 +70,7 @@ void clear(ArrayList* list) {
     while (current) {
         Node* next = current->next;
 
-        free(current->value);
-        free(current);
+        deleteNode(current);
 
         current = next;
     }
@@ -78,5 +82,82 @@ void clear(ArrayList* list) {
 void destroy(ArrayList* list) {
     clear(list);
     free(list);
+
+}
+
+int isValidIndex(ArrayList* list, int index) {
+    return 0 <= index && index <= size(list);
+}
+
+void removeAt(ArrayList* list, int index) {
+    if (size(list) == 0) {
+        return;
+    }
+
+    if (isValidIndex(list, index)) {
+        return;
+    }
+
+    if (index == 0) {
+        Node* tmp = list->head;
+
+        list->head = list->head->next;
+
+        deleteNode(tmp);
+
+        list->size--;
+
+        return;
+    }
+
+    Node* current = list->head;
+
+    int currentIndex = 0;
+
+    while (current && (currentIndex + 1) != index) {
+        currentIndex++;
+        current = current->next;
+    }
+
+    Node* tmp = current->next;
+    current->next = tmp->next;
+
+    deleteNode(tmp);
+
+    list->size--;
+
+}
+
+void remove(ArrayList* list, void* value) {
+    if (size(list) == 0) {
+        return;
+    }
+
+    if (list->head->value == value) {
+
+        Node* tmp = list->head;
+
+        list->head = list->head->next;
+        list->size--;
+
+        deleteNode(tmp);
+
+        return;
+    }
+
+    Node* current = list->head;
+    
+    while (current->next && current->next->value != value) {
+        current = current->next;
+    }
+
+    if (current->next) {
+        Node* tmp = current->next;
+        current->next = tmp->next;
+
+        deleteNode(tmp);
+
+        list->size--;
+    }
 
 }
