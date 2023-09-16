@@ -285,3 +285,25 @@ void** toArray(ArrayList* list) {
 
     return array;
 }
+
+void iterator(ArrayList* list) {
+    Iterator* iter = (Iterator*) malloc(sizeof(Iterator)); 
+
+    iter->list = list;
+    iter->current = list->head;
+
+    return iter;
+}
+
+
+void* next(Iterator* iterator) {
+    if (hasNext(iterator)) {
+        Node* current = iterator->current;
+
+        iterator->current = current->next;
+    }
+}
+
+int hasNext(Iterator* iterator) {
+    return iterator->current == NULL;
+}
