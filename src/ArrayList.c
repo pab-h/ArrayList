@@ -223,3 +223,65 @@ void set(ArrayList* list, int index, void* value) {
     current->value = value;
 
 }
+
+ArrayList* subArrayList(ArrayList* list, int start, int end) {
+    if (size(list) == 0) {
+        return NULL;
+    }
+
+    if (isValidIndex(list, start) && isValidIndex(list, end)) {
+        return NULL;
+    }
+
+    if (start > end) {
+        int tmp = start;
+
+        start = end;
+        end = tmp;
+    }
+
+    ArrayList* subList = createArrayList();
+
+    int index = 0;
+
+    Node* current = list->head;
+
+    while (current) {
+        if (index > end) {
+            break;
+        }
+
+        if (index >= start && index <= end) {
+            add(subList, current->value);
+        }
+
+        index++;
+        current = current->next;
+    }
+
+    return subList;
+}
+
+void** toArray(ArrayList* list) {
+    if (size(list) == 0) {
+        return NULL;
+    }
+
+    int array_size = size(list) + 1;
+
+    void** array = malloc(array_size * sizeof(void*)); 
+
+    Node* current = list->head;
+
+    int index = 0;
+
+    while (current) {
+
+        *(array + index) = current->value;
+
+        index++;
+        current = current->next;
+    }
+
+    return array;
+}
