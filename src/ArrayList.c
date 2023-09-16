@@ -33,6 +33,10 @@ ArrayList* arrayListFrom(void** values) {
     return list;
 }
 
+int size(ArrayList* list) {
+    return list->size;
+}
+
 void add(ArrayList* list, void* value) {
     Node* node = createNode(value);
     
@@ -159,5 +163,63 @@ void remove(ArrayList* list, void* value) {
 
         list->size--;
     }
+
+}
+
+int indexOf(ArrayList* list, void* value) {
+    Node* current = list->head;
+
+    int currentIndex = 0;
+
+    while (current) {
+
+        if (current->value == value) {
+            return currentIndex;
+        }
+
+        currentIndex++;
+        current = current->next;
+    }
+
+    return -1;
+}
+
+void* get(ArrayList* list, int index) {
+    if (isValidIndex(list, index)) {
+        return NULL;
+    }
+
+    Node* current = list->head;
+
+    int currentIndex = 0;
+
+    while (current) {
+
+        if (currentIndex == index) {
+            return current;
+        }
+
+        currentIndex++;
+        current = current->next;
+    }
+
+    return NULL;
+}
+
+void set(ArrayList* list, int index, void* value) {
+    if (isValidIndex(list, index)) {
+        return;
+    }
+
+    Node* current = list->head;
+
+    int currentIndex = 0;
+
+    while (current && currentIndex != index) {
+        currentIndex++;
+        current = current->next;
+    }
+
+    current->value = value;
 
 }
