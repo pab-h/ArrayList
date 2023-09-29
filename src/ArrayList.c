@@ -1,5 +1,6 @@
+#include <stdlib.h>
+
 #include "../header/ArrayList.h"
-#include "stdlib.h"
 
 Node* createNode(void* value) {
     Node* node = (Node*) malloc(sizeof(Node));
@@ -8,11 +9,6 @@ Node* createNode(void* value) {
     node->next = NULL;
 
     return node;
-}
-
-void deleteNode(Node* node) {
-    free(node->value);
-    free(node);
 }
 
 ArrayList* createArrayList() {
@@ -25,10 +21,10 @@ ArrayList* createArrayList() {
     return list;
 }
 
-ArrayList* arrayListFrom(void** values) {
+ArrayList* arrayListFrom(void** values, int size) {
     ArrayList* list = createArrayList();
 
-    addAll(list, values);
+    addAll(list, values, size);
 
     return list;
 }
@@ -55,9 +51,7 @@ void add(ArrayList* list, void* value) {
 
 }
 
-void addAll(ArrayList* list, void** values) {
-    int size = sizeof(values) / sizeof(*values);
-    
+void addAll(ArrayList* list, void** values, int size) {
     for(int i = 0; i < size; i++) {
         add(list, *(values + i));
     }
@@ -74,7 +68,7 @@ void clear(ArrayList* list) {
     while (current) {
         Node* next = current->next;
 
-        deleteNode(current);
+        free(current);
 
         current = next;
     }
@@ -98,7 +92,7 @@ void removeAt(ArrayList* list, int index) {
         return;
     }
 
-    if (isValidIndex(list, index)) {
+    if (!isValidIndex(list, index)) {
         return;
     }
 
@@ -107,7 +101,7 @@ void removeAt(ArrayList* list, int index) {
 
         list->head = list->head->next;
 
-        deleteNode(tmp);
+        free(tmp);
 
         list->size--;
 
@@ -126,13 +120,13 @@ void removeAt(ArrayList* list, int index) {
     Node* tmp = current->next;
     current->next = tmp->next;
 
-    deleteNode(tmp);
+    free(tmp);
 
     list->size--;
 
 }
 
-void remove(ArrayList* list, void* value) {
+void removeValue(ArrayList* list, void* value) {
     if (size(list) == 0) {
         return;
     }
@@ -144,7 +138,7 @@ void remove(ArrayList* list, void* value) {
         list->head = list->head->next;
         list->size--;
 
-        deleteNode(tmp);
+        free(tmp);
 
         return;
     }
@@ -159,7 +153,7 @@ void remove(ArrayList* list, void* value) {
         Node* tmp = current->next;
         current->next = tmp->next;
 
-        deleteNode(tmp);
+        free(tmp);
 
         list->size--;
     }
@@ -185,7 +179,7 @@ int indexOf(ArrayList* list, void* value) {
 }
 
 void* get(ArrayList* list, int index) {
-    if (isValidIndex(list, index)) {
+    if (!isValidIndex(list, index)) {
         return NULL;
     }
 
@@ -196,7 +190,7 @@ void* get(ArrayList* list, int index) {
     while (current) {
 
         if (currentIndex == index) {
-            return current;
+            return current->value;
         }
 
         currentIndex++;
@@ -207,7 +201,7 @@ void* get(ArrayList* list, int index) {
 }
 
 void set(ArrayList* list, int index, void* value) {
-    if (isValidIndex(list, index)) {
+    if (!isValidIndex(list, index)) {
         return;
     }
 
@@ -229,7 +223,7 @@ ArrayList* subArrayList(ArrayList* list, int start, int end) {
         return NULL;
     }
 
-    if (isValidIndex(list, start) && isValidIndex(list, end)) {
+    if (!isValidIndex(list, start) && !isValidIndex(list, end)) {
         return NULL;
     }
 
@@ -286,7 +280,7 @@ void** toArray(ArrayList* list) {
     return array;
 }
 
-void iterator(ArrayList* list) {
+Iterator* iterator(ArrayList* list) {
     Iterator* iter = (Iterator*) malloc(sizeof(Iterator)); 
 
     iter->list = list;
@@ -301,9 +295,13 @@ void* next(Iterator* iterator) {
         Node* current = iterator->current;
 
         iterator->current = current->next;
+
+        return current->value;
     }
+
+    return NULL;
 }
 
 int hasNext(Iterator* iterator) {
-    return iterator->current == NULL;
+    return iterator->current != NULL;
 }
