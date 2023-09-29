@@ -27,11 +27,11 @@ typedef struct Iterator {
 
 ArrayList* createArrayList();
 
-ArrayList* arrayListFrom(void** values);
+ArrayList* arrayListFrom(void** values, int size);
 
 void add(ArrayList* list, void* value);
 
-void addAll(ArrayList* list, void** values);
+void addAll(ArrayList* list, void** values, int size);
 
 void clear(ArrayList* list);
 
@@ -39,9 +39,11 @@ void destroy(ArrayList* list);
 
 void* get(ArrayList* list, int index);
 
+void set(ArrayList* list, int index, void* value);
+
 int indexOf(ArrayList* list, void* value);
 
-void remove(ArrayList* list, void* value);
+void removeValue(ArrayList* list, void* value);
 
 void removeAt(ArrayList* list, int index);
 
@@ -49,11 +51,9 @@ int size(ArrayList* list);
 
 ArrayList* subArrayList(ArrayList* list, int start, int end);
 
-void set(ArrayList* list, int index, void* value);
-
 void** toArray(ArrayList* list);
 
-void iterator(ArrayList* list);
+Iterator* iterator(ArrayList* list);
 
 
 void* next(Iterator* iterator);
